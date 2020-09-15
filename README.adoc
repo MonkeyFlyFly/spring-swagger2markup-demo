@@ -69,3 +69,37 @@ See live demo on GitHub Pages: http://swagger2markup.github.io/spring-swagger2ma
 == Screenshot
 
 image:images/Demo.PNG[]
+
+
+== 设置TITLE
+@EnableApiDoc
+```
+application.yml
+
+  main:
+    allow-bean-definition-overriding: true
+
+
+Application.java
+ @Bean
+    public DocketProperties properties(){
+        DocketProperties doc = new DocketProperties();
+        doc.setContact("物资合同API");
+        doc.setDescription("物资合同API");
+        doc.setTitle("物资合同API");
+        doc.setVersion("v1.0");
+        return doc;
+    }
+    @Bean
+
+    public ApiInfo applicationInfo(DocketProperties properties) {
+        ApiInfoBuilder builder = new ApiInfoBuilder();
+        if (properties != null) {
+            builder.title(properties.getTitle())
+                    .description(properties.getDescription())
+                    .version(properties.getVersion());
+        }
+        return builder.build();
+    }
+
+```
